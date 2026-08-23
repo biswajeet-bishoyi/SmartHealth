@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply font-sans text-[#0b1c30] bg-[#f8f9ff] dark:bg-[#061324] dark:text-[#eaf1ff] transition-colors duration-200;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Atkinson Hyperlegible Next", Inter, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { @apply text-3xl font-extrabold tracking-tight; }
+  h2 { @apply text-2xl font-bold tracking-tight; }
+  h3 { @apply text-xl font-bold; }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm min-h-[48px];
+  }
+  .btn-primary {
+    @apply btn bg-[#001e40] hover:bg-[#003366] text-white focus:ring-[#003366] active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply btn bg-white dark:bg-[#0c1f36] text-[#0b1c30] dark:text-[#eaf1ff] border border-[#c3c6d1] dark:border-[#1f3c60] hover:bg-[#f8f9ff] dark:hover:bg-[#142c4a] focus:ring-[#003366];
+  }
+  .btn-accent {
+    @apply btn bg-[#006c49] hover:bg-[#00855a] text-white focus:ring-[#006c49] active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply btn bg-[#ba1a1a] hover:bg-[#93000a] text-white focus:ring-[#ba1a1a] active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-[#0b1c30] dark:text-[#eaf1ff] hover:bg-[#eff4ff] dark:hover:bg-[#0c1f36] transition-colors;
+  }
+
+  /* Institutional Cards (Tonal Layer 1) */
+  .card {
+    @apply bg-white dark:bg-[#0c1f36] rounded-xl shadow-sm border border-[#e2e8f0] dark:border-[#1f3c60] p-6 transition-colors;
+  }
+  .card-sm {
+    @apply bg-white dark:bg-[#0c1f36] rounded-lg shadow-sm border border-[#e2e8f0] dark:border-[#1f3c60] p-4 transition-colors;
+  }
+  .card-interactive {
+    @apply card hover:border-[#003366] dark:hover:border-[#799dd6] hover:shadow-md transition-all;
+  }
+
+  /* Form elements */
+  .form-label {
+    @apply block text-xs font-bold text-[#43474f] dark:text-[#c3c6d1] mb-1.5 uppercase tracking-wider font-sans;
+  }
+  .form-input {
+    @apply w-full rounded-lg border border-[#c3c6d1] dark:border-[#1f3c60] bg-white dark:bg-[#061324] text-[#0b1c30] dark:text-white px-4 py-3 text-sm
+           focus:outline-none focus:ring-2 focus:ring-[#003366] focus:border-transparent
+           placeholder-[#737780] transition-colors min-h-[48px];
+  }
+  .form-select {
+    @apply form-input appearance-none cursor-pointer;
+  }
+
+  /* Semantic Risk Badges */
+  .risk-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider;
+  }
+  .risk-low { @apply risk-badge bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-300; }
+  .risk-medium { @apply risk-badge bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300; }
+  .risk-high { @apply risk-badge bg-orange-100 text-orange-900 dark:bg-orange-950/60 dark:text-orange-300; }
+  .risk-critical { @apply risk-badge bg-rose-100 text-rose-900 dark:bg-rose-950/60 dark:text-rose-300; }
+}

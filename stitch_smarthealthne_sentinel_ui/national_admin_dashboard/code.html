@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartHealthNE 2.0 - Command Center Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#341100",
+                      "outline-variant": "#c3c6d1",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "outline": "#737780",
+                      "primary-container": "#003366",
+                      "on-tertiary-container": "#d8885c",
+                      "surface": "#f8f9ff",
+                      "surface-container": "#e5eeff",
+                      "on-background": "#0b1c30",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#001e40",
+                      "error-container": "#ffdad6",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-primary": "#ffffff",
+                      "secondary": "#006c49",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-fixed-variant": "#723610",
+                      "secondary-container": "#6cf8bb",
+                      "on-primary-fixed-variant": "#1f477b",
+                      "background": "#f8f9ff",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#3a5f94",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-bright": "#f8f9ff",
+                      "surface-variant": "#d3e4fe",
+                      "inverse-surface": "#213145",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#a7c8ff",
+                      "on-primary-fixed": "#001b3c",
+                      "surface-container-low": "#eff4ff",
+                      "primary-fixed": "#d5e3ff",
+                      "on-surface-variant": "#43474f",
+                      "on-secondary-container": "#00714d",
+                      "on-primary-container": "#799dd6",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#0b1c30",
+                      "on-secondary-fixed": "#002113",
+                      "surface-dim": "#cbdbf5",
+                      "inverse-primary": "#a7c8ff",
+                      "tertiary-container": "#592300",
+                      "tertiary-fixed": "#ffdbca",
+                      "tertiary": "#381300"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "touch-target": "48px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "table-header": [
+                              "Inter"
+                      ],
+                      "h1": [
+                              "Atkinson Hyperlegible Next"
+                      ],
+                      "caption": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Atkinson Hyperlegible Next"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "button": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display": [
+                              "Atkinson Hyperlegible Next"
+                      ],
+                      "h2": [
+                              "Atkinson Hyperlegible Next"
+                      ]
+              },
+              "fontSize": {
+                      "table-header": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h1": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h3": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "button": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h2": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .material-symbols-outlined {
+              font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+          }
+      </style>
+</head>
+<body class="h-full bg-background text-on-surface overflow-hidden font-body-md flex">
+<!-- TopAppBar Structure Wrapper (Normally fixed, but using flex structure here for dashboard layout) -->
+<div class="fixed top-0 w-full z-50 bg-primary shadow-sm flex justify-between items-center h-16 px-margin-desktop text-on-primary font-h3 text-h3">
+<div class="font-h2 text-h2 font-bold text-on-primary">
+            SmartHealthNE 2.0
+        </div>
+<div class="flex items-center gap-stack-md">
+<!-- Navigation Links -->
+<div class="hidden md:flex gap-stack-md mr-stack-lg">
+<span class="text-on-primary/80 font-medium hover:bg-primary-fixed-variant/20 transition-colors cursor-pointer active:scale-95 px-unit py-1 rounded">Language</span>
+<span class="text-on-primary/80 font-medium hover:bg-primary-fixed-variant/20 transition-colors cursor-pointer active:scale-95 px-unit py-1 rounded">Connection</span>
+</div>
+<!-- Trailing Icons -->
+<div class="flex gap-stack-md">
+<span class="material-symbols-outlined cursor-pointer hover:bg-primary-fixed-variant/20 transition-colors active:scale-95 rounded-full p-1" data-icon="language" data-weight="fill" style="font-variation-settings: 'FILL' 1;">language</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-primary-fixed-variant/20 transition-colors active:scale-95 rounded-full p-1" data-icon="signal_cellular_alt" data-weight="fill" style="font-variation-settings: 'FILL' 1;">signal_cellular_alt</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-primary-fixed-variant/20 transition-colors active:scale-95 rounded-full p-1" data-icon="account_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</div>
+</div>
+</div>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-low border-r border-outline-variant flex flex-col p-stack-md gap-stack-sm pt-20 overflow-y-auto">
+<!-- Header -->
+<div class="mb-stack-md border-b border-outline-variant pb-stack-md">
+<div class="flex items-center gap-stack-sm mb-unit">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-h3">
+                    HW
+                </div>
+<div>
+<h2 class="font-h3 text-h3 font-bold text-primary">Command Center</h2>
+<p class="font-caption text-caption text-on-surface-variant">Role: Admin/Health Worker</p>
+</div>
+</div>
+<button class="w-full mt-stack-sm bg-primary text-white font-button text-button h-touch-target rounded hover:bg-primary/90 flex items-center justify-center gap-unit transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+                Emergency Report
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-unit">
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-bold font-body-sm text-body-sm transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Reports
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+                Risk Monitor
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                Predictions
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+                Water Sources
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Map
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                Alerts
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Resources
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+                Simulator
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                Audit
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto pt-stack-sm border-t border-outline-variant flex flex-col gap-unit">
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-gutter px-stack-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Log Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 flex-1 flex flex-col h-full overflow-hidden bg-background">
+<div class="flex-1 overflow-y-auto p-margin-desktop grid grid-cols-12 gap-gutter h-full">
+<!-- Top KPI Row -->
+<div class="col-span-12 grid grid-cols-4 gap-gutter mb-stack-md h-[100px]">
+<!-- KPI 1: Critical Locations -->
+<div class="bg-surface border border-error p-stack-sm rounded shadow-sm flex flex-col justify-center relative overflow-hidden">
+<div class="absolute right-[-10px] top-[-10px] opacity-10 text-error">
+<span class="material-symbols-outlined text-[80px]" data-icon="emergency" data-weight="fill" style="font-variation-settings: 'FILL' 1;">emergency</span>
+</div>
+<div class="flex items-center gap-unit text-error font-table-header text-table-header z-10">
+<span class="material-symbols-outlined" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+                         Critical Locations
+                    </div>
+<div class="font-display text-display text-on-surface z-10 mt-1">3</div>
+</div>
+<!-- KPI 2: High-Risk Locations -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded shadow-sm flex flex-col justify-center relative overflow-hidden">
+<div class="absolute right-[-10px] top-[-10px] opacity-10 text-on-tertiary-container">
+<span class="material-symbols-outlined text-[80px]" data-icon="location_on" data-weight="fill" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="flex items-center gap-unit text-on-surface-variant font-table-header text-table-header z-10">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="report_problem" data-weight="fill" style="font-variation-settings: 'FILL' 1;">report_problem</span>
+                         High-Risk Locations
+                    </div>
+<div class="font-display text-display text-on-surface z-10 mt-1">8</div>
+</div>
+<!-- KPI 3: Predicted Hotspots -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded shadow-sm flex flex-col justify-center relative overflow-hidden">
+<div class="absolute right-[-10px] top-[-10px] opacity-10 text-primary">
+<span class="material-symbols-outlined text-[80px]" data-icon="online_prediction" data-weight="fill" style="font-variation-settings: 'FILL' 1;">online_prediction</span>
+</div>
+<div class="flex items-center gap-unit text-on-surface-variant font-table-header text-table-header z-10">
+<span class="material-symbols-outlined text-primary" data-icon="timeline" data-weight="fill" style="font-variation-settings: 'FILL' 1;">timeline</span>
+                         Predicted Hotspots
+                    </div>
+<div class="font-display text-display text-on-surface z-10 mt-1">5</div>
+</div>
+<!-- KPI 4: Active Alerts -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded shadow-sm flex flex-col justify-center relative overflow-hidden">
+<div class="absolute right-[-10px] top-[-10px] opacity-10 text-secondary">
+<span class="material-symbols-outlined text-[80px]" data-icon="notifications_active" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+<div class="flex items-center gap-unit text-on-surface-variant font-table-header text-table-header z-10">
+<span class="material-symbols-outlined text-secondary" data-icon="notifications" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications</span>
+                         Active Alerts
+                    </div>
+<div class="font-display text-display text-on-surface z-10 mt-1">2</div>
+</div>
+</div>
+<!-- Central Content: Map & Right Panel -->
+<div class="col-span-12 grid grid-cols-12 gap-gutter flex-1 min-h-[400px]">
+<!-- Live Situation Map -->
+<div class="col-span-8 bg-surface border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="p-stack-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-h3 text-h3 text-on-surface">Live Situation Map</h3>
+<div class="flex gap-unit">
+<button class="bg-surface-container px-3 py-1 rounded text-primary font-caption text-caption border border-primary/20">Terrain</button>
+<button class="bg-primary text-white px-3 py-1 rounded font-caption text-caption">Heatmap</button>
+</div>
+</div>
+<div class="flex-1 relative bg-surface-dim overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover opacity-80" data-alt="A highly detailed, modern topographical map of Northeast India displayed in a light-mode UI interface. The map features precise vector lines, subtle elevation shading, and high-contrast glowing hotspot markers in red and amber indicating risk areas. The overall aesthetic is professional, data-centric, and institutional." data-location="Northeast India Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_1ArDcMLfOx2eqSitBj6mmb4sEpEnFgilJAXfZYeHr3dVRikgMNmmyZ5KUIVR8YtUrDo6oTHymPxmZ-MwpF0uv1h18j8-35oWYh-CKPfJlOMz5AYvRJTI0yeMKdRr9DRZZclzJDd0578VYbZLcEmolXPq5xOjKoGECFAYHSJo13QWBam_F8y9IY9SgGTBmyOi7dJlOysrpQR4e5bVN_BnE4TZsI7Ho7dGrQJXteGgWrdSRvU5r8Ho"/>
+<!-- Map Overlays / Hotspots (Simulated) -->
+<div class="absolute top-1/4 left-1/3 flex items-center justify-center">
+<span class="absolute inline-flex h-full w-full rounded-full bg-error opacity-75 animate-ping"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-error"></span>
+</div>
+<div class="absolute top-1/2 left-1/2 flex items-center justify-center">
+<span class="absolute inline-flex h-full w-full rounded-full bg-tertiary-fixed-dim opacity-75 animate-ping"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-tertiary-fixed-dim"></span>
+</div>
+</div>
+</div>
+<!-- Right Panel: Selected Area Details -->
+<div class="col-span-4 bg-surface border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="p-stack-sm border-b border-outline-variant bg-surface-container-lowest">
+<h3 class="font-h3 text-h3 text-on-surface">Selected Area</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Village XYZ, Assam Sector</p>
+</div>
+<div class="p-stack-sm flex-1 overflow-y-auto flex flex-col gap-stack-md bg-surface-bright">
+<!-- Risk Status -->
+<div class="bg-error/10 border border-error/20 p-stack-sm rounded">
+<div class="flex items-center gap-unit mb-2">
+<span class="material-symbols-outlined text-error" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-button text-button text-error">Current Risk: HIGH</span>
+</div>
+<div class="flex items-center gap-unit">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up" data-weight="fill" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-body-sm text-body-sm text-on-surface">Predicted: CRITICAL (48hrs)</span>
+</div>
+</div>
+<!-- Data Points -->
+<div class="grid grid-cols-2 gap-unit">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50">
+<span class="font-caption text-caption text-on-surface-variant block mb-1">Reported Cases</span>
+<span class="font-h2 text-h2 text-on-surface font-bold">14</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50">
+<span class="font-caption text-caption text-on-surface-variant block mb-1">Water Sources Tested</span>
+<span class="font-h2 text-h2 text-on-surface font-bold">3/5</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50 col-span-2">
+<span class="font-caption text-caption text-on-surface-variant block mb-1">Primary Vector</span>
+<span class="font-body-md text-body-md text-on-surface">Contaminated Well Alpha</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-auto flex flex-col gap-unit">
+<button class="w-full bg-primary text-white font-button text-button h-[48px] rounded hover:bg-primary/90 flex items-center justify-center gap-unit transition-colors">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+                                Dispatch Medical Team
+                            </button>
+<button class="w-full bg-transparent border border-primary text-primary font-button text-button h-[48px] rounded hover:bg-primary/5 flex items-center justify-center gap-unit transition-colors">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+                                Issue Community Alert
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Trend Chart & Priority Feed -->
+<div class="col-span-12 grid grid-cols-12 gap-gutter h-[250px] mt-stack-md">
+<!-- Regional Risk Trend Chart -->
+<div class="col-span-8 bg-surface border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="p-stack-sm border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h3 class="font-h3 text-h3 text-on-surface">Regional Risk Trend (7 Days)</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_horiz">more_horiz</span>
+</div>
+<div class="flex-1 p-stack-sm relative bg-surface-bright flex items-end">
+<!-- Simulated Line Graph using SVG -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#003366" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#003366" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<polyline fill="none" points="0,35 10,30 20,32 30,25 40,28 50,20 60,15 70,18 80,10 90,5 100,2" stroke="#003366" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+<polygon fill="url(#chartGradient)" points="0,40 0,35 10,30 20,32 30,25 40,28 50,20 60,15 70,18 80,10 90,5 100,2 100,40"></polygon>
+<!-- Grid Lines -->
+<line stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" x2="100" y1="10" y2="10"></line>
+<line stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" x2="100" y1="20" y2="20"></line>
+<line stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="0.5" vector-effect="non-scaling-stroke" x1="0" x2="100" y1="30" y2="30"></line>
+</svg>
+</div>
+</div>
+<!-- Active Priority Feed -->
+<div class="col-span-4 bg-surface border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="p-stack-sm border-b border-outline-variant bg-surface-container-lowest">
+<h3 class="font-h3 text-h3 text-on-surface">Active Priority Feed</h3>
+</div>
+<div class="flex-1 p-stack-sm overflow-y-auto flex flex-col gap-unit bg-surface-bright">
+<!-- Feed Item 1 -->
+<div class="flex gap-unit p-2 rounded bg-surface-container-low border-l-4 border-error">
+<span class="material-symbols-outlined text-error mt-1" data-icon="error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">error</span>
+<div>
+<h4 class="font-table-header text-table-header text-on-surface">New Cluster Detected</h4>
+<p class="font-caption text-caption text-on-surface-variant">Village XYZ reporting 5 new cases in past hour.</p>
+<span class="font-caption text-[10px] text-outline mt-1 block">10 mins ago</span>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="flex gap-unit p-2 rounded bg-surface-container-low border-l-4 border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-tertiary-container mt-1" data-icon="science" data-weight="fill" style="font-variation-settings: 'FILL' 1;">science</span>
+<div>
+<h4 class="font-table-header text-table-header text-on-surface">Lab Results Ready</h4>
+<p class="font-caption text-caption text-on-surface-variant">Water samples from Sector B confirmed contaminated.</p>
+<span class="font-caption text-[10px] text-outline mt-1 block">45 mins ago</span>
+</div>
+</div>
+<!-- Feed Item 3 -->
+<div class="flex gap-unit p-2 rounded bg-surface-container-low border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-table-header text-table-header text-on-surface">Medical Team Arrived</h4>
+<p class="font-caption text-caption text-on-surface-variant">Team Alpha deployed to District HQ.</p>
+<span class="font-caption text-[10px] text-outline mt-1 block">2 hours ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

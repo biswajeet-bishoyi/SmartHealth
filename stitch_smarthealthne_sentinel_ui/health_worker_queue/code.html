@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Health Worker Priority Verification Queue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#341100",
+                    "outline-variant": "#c3c6d1",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary-fixed-dim": "#ffb690",
+                    "outline": "#737780",
+                    "primary-container": "#003366",
+                    "on-tertiary-container": "#d8885c",
+                    "surface": "#f8f9ff",
+                    "surface-container": "#e5eeff",
+                    "on-background": "#0b1c30",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#001e40",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary": "#ffffff",
+                    "secondary": "#006c49",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-fixed-variant": "#723610",
+                    "secondary-container": "#6cf8bb",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "background": "#f8f9ff",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#3a5f94",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-bright": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "inverse-surface": "#213145",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "on-primary-fixed": "#001b3c",
+                    "surface-container-low": "#eff4ff",
+                    "primary-fixed": "#d5e3ff",
+                    "on-surface-variant": "#43474f",
+                    "on-secondary-container": "#00714d",
+                    "on-primary-container": "#799dd6",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-fixed": "#002113",
+                    "surface-dim": "#cbdbf5",
+                    "inverse-primary": "#a7c8ff",
+                    "tertiary-container": "#592300",
+                    "tertiary-fixed": "#ffdbca",
+                    "tertiary": "#381300"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "touch-target": "48px",
+                    "stack-lg": "32px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "table-header": [
+                            "Inter"
+                    ],
+                    "h1": [
+                            "Atkinson Hyperlegible Next"
+                    ],
+                    "caption": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "h3": [
+                            "Atkinson Hyperlegible Next"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "button": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "display": [
+                            "Atkinson Hyperlegible Next"
+                    ],
+                    "h2": [
+                            "Atkinson Hyperlegible Next"
+                    ]
+            },
+            "fontSize": {
+                    "table-header": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h1": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "caption": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "h3": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "button": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "h2": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .icon-fill-1 {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f9ff; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c6d1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737780; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-low border-r border-outline-variant flex flex-col p-stack-md gap-stack-sm hidden md:flex">
+<div class="mb-stack-lg flex flex-col gap-unit">
+<div class="font-h3 text-h3 font-bold text-primary">SmartHealthNE 2.0</div>
+<div class="flex items-center gap-stack-sm mt-stack-md bg-surface p-stack-sm rounded-lg border border-outline-variant">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A highly detailed close-up portrait of a professional healthcare worker wearing modern scrubs, softly illuminated in a high-tech medical environment. The lighting is crisp and cool, casting subtle shadows to emphasize a reliable and institutional mood. The overall visual style is corporate, clean, and highly realistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkDCOaajFqK432KGzdcf9WzSwtNS70G4mWNPbI82LBxY5ZHldu3vmKyJ9bEI7yM-kNnnZMhgtSi5fqmrYEHIEcAyL0TnnkKJC11xmxUx1Xz4z3Npyly7iX_1ANOJI2c8buOPX0l1vLytvz0BQ5rd15d9mEmo6LK96SB263fXnOBXt6vpKhH9CEe0RExgZc-iDrdVKFU2GkUa1OTeJuchwF1O7-CdBb_s5pkgFIGAa2mewA0iF-0qaw"/>
+<div>
+<div class="font-button text-button text-on-surface">Command Center</div>
+<div class="font-caption text-caption text-on-surface-variant">Role: Admin/Health Worker</div>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col gap-unit">
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-sm text-body-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined icon-fill-1" data-icon="description">description</span>
+<span class="font-body-sm text-body-sm">Reports</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-body-sm text-body-sm">Risk Monitor</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-sm text-body-sm">Predictions</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span class="font-body-sm text-body-sm">Water Sources</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-body-sm text-body-sm">Map</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-body-sm text-body-sm">Alerts</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-body-sm text-body-sm">Resources</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-sm text-body-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+<span class="font-body-sm text-body-sm">Simulator</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-body-sm text-body-sm">Audit</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-unit pt-stack-md border-t border-outline-variant">
+<button class="bg-error text-on-error font-button text-button h-touch-target rounded-lg flex items-center justify-center gap-unit px-stack-md hover:bg-error/90 transition-colors">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+                Emergency Report
+            </button>
+<div class="flex flex-col gap-unit mt-unit">
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+<a class="flex items-center gap-stack-sm p-stack-sm text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-sm text-body-sm">Log Out</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 flex flex-col h-full bg-surface">
+<!-- TopAppBar -->
+<header class="bg-primary flex justify-between items-center h-16 px-margin-desktop w-full shadow-sm z-30 shrink-0 hidden md:flex">
+<div class="font-h3 text-h3 font-bold text-on-primary">Priority Verification Queue</div>
+<div class="flex items-center gap-stack-lg">
+<div class="flex gap-stack-md">
+<a class="text-on-primary/80 font-medium font-body-md text-body-md hover:bg-primary-fixed-variant/20 transition-colors px-2 py-1 rounded" href="#">Language</a>
+<a class="text-on-primary/80 font-medium font-body-md text-body-md hover:bg-primary-fixed-variant/20 transition-colors px-2 py-1 rounded" href="#">Connection</a>
+</div>
+<div class="flex items-center gap-stack-sm text-on-primary">
+<button class="p-2 rounded-full hover:bg-primary-fixed-variant/20 transition-colors cursor-pointer active:scale-95"><span class="material-symbols-outlined" data-icon="language">language</span></button>
+<button class="p-2 rounded-full hover:bg-primary-fixed-variant/20 transition-colors cursor-pointer active:scale-95"><span class="material-symbols-outlined" data-icon="signal_cellular_alt">signal_cellular_alt</span></button>
+<button class="p-2 rounded-full hover:bg-primary-fixed-variant/20 transition-colors cursor-pointer active:scale-95"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</div>
+</header>
+<!-- Main Layout Split -->
+<div class="flex-1 flex overflow-hidden p-stack-lg gap-stack-lg">
+<!-- Left Side: High-Density Table (2/3 width) -->
+<section class="w-2/3 flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center shrink-0">
+<h2 class="font-h2 text-h2 text-on-surface">Pending Verification</h2>
+<div class="flex items-center gap-stack-sm">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none h-10 w-64" placeholder="Search locations..." type="text"/>
+</div>
+<button class="h-10 px-4 border border-outline-variant rounded-lg font-button text-button text-on-surface flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span> Filter
+                        </button>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface z-10 shadow-[0_1px_0_0_#e2e8f0]">
+<tr>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap pl-stack-md">Location</th>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap">Current Risk</th>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap">Predicted Risk</th>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap">Vulnerability</th>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap">Reports</th>
+<th class="p-stack-sm font-table-header text-table-header text-on-surface-variant whitespace-nowrap pr-stack-md">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<!-- Selected Row -->
+<tr class="bg-surface-container-highest cursor-pointer border-b border-outline-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] relative z-20">
+<td class="p-stack-sm pl-stack-md">
+<div class="font-medium text-on-surface">Sector 4, North Ward</div>
+<div class="text-on-surface-variant text-caption">Urban, High Density</div>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-error-container/20 text-on-error-container border border-error-container">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span> High
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-error/10 text-error border border-error/20 font-bold">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> Critical (92%)
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 85%"></div>
+</div>
+<span class="font-medium">8.5</span>
+</div>
+</td>
+<td class="p-stack-sm">
+<span class="font-medium">47</span> <span class="text-on-surface-variant">(+12 24h)</span>
+</td>
+<td class="p-stack-sm pr-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-container/10 text-on-tertiary-container border border-tertiary-container/30">
+<span class="material-symbols-outlined text-[16px]" data-icon="pending">pending</span> Pending
+                                    </span>
+</td>
+</tr>
+<!-- Unselected Rows -->
+<tr class="bg-surface hover:bg-surface-container-low cursor-pointer border-b border-outline-variant transition-colors">
+<td class="p-stack-sm pl-stack-md">
+<div class="font-medium text-on-surface">Lakeview Community</div>
+<div class="text-on-surface-variant text-caption">Rural, Near Water Source</div>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-fixed-dim/20 text-on-tertiary-fixed-variant border border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[16px]" data-icon="report">report</span> Elevated
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-error-container/20 text-on-error-container border border-error-container/50">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> High (78%)
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 72%"></div>
+</div>
+<span class="font-medium">7.2</span>
+</div>
+</td>
+<td class="p-stack-sm">
+<span class="font-medium">18</span> <span class="text-on-surface-variant">(+5 24h)</span>
+</td>
+<td class="p-stack-sm pr-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-container/10 text-on-tertiary-container border border-tertiary-container/30">
+<span class="material-symbols-outlined text-[16px]" data-icon="pending">pending</span> Pending
+                                    </span>
+</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-low cursor-pointer border-b border-outline-variant transition-colors">
+<td class="p-stack-sm pl-stack-md">
+<div class="font-medium text-on-surface">East District Clinic Area</div>
+<div class="text-on-surface-variant text-caption">Urban, Commercial</div>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary-container/20 text-on-secondary-container border border-secondary-container">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span> Low
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-fixed-dim/20 text-on-tertiary-fixed-variant border border-tertiary-fixed-dim/50">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_flat">trending_flat</span> Elevated (45%)
+                                    </span>
+</td>
+<td class="p-stack-sm">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 35%"></div>
+</div>
+<span class="font-medium">3.5</span>
+</div>
+</td>
+<td class="p-stack-sm">
+<span class="font-medium">4</span> <span class="text-on-surface-variant">(+0 24h)</span>
+</td>
+<td class="p-stack-sm pr-stack-md">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-container/10 text-on-tertiary-container border border-tertiary-container/30">
+<span class="material-symbols-outlined text-[16px]" data-icon="pending">pending</span> Pending
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Right Side: Prediction Insight Panel (1/3 width) -->
+<aside class="w-1/3 flex flex-col gap-stack-md">
+<!-- Info Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-stack-md flex-1 flex flex-col shadow-sm">
+<div class="flex items-start justify-between mb-stack-md">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Sector 4, North Ward</h3>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Prediction Insight &amp; Breakdown</p>
+</div>
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-error-container/20 text-error">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+</span>
+</div>
+<div class="mb-stack-lg">
+<div class="flex items-baseline gap-2 mb-2">
+<span class="font-display text-display text-error">92%</span>
+<span class="font-h3 text-h3 text-on-surface-variant">Probability</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">Model predicts a critical outbreak event within the next 48-72 hours if no intervention is applied.</p>
+</div>
+<h4 class="font-table-header text-table-header text-on-surface-variant border-b border-outline-variant pb-2 mb-stack-sm">Key Contributors</h4>
+<ul class="flex flex-col gap-unit mb-auto font-body-sm text-body-sm">
+<li class="flex items-center justify-between p-2 rounded bg-error-container/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]" data-icon="coronavirus">coronavirus</span>
+<span class="text-on-surface">Reported Diarrhea Cases</span>
+</div>
+<span class="font-bold text-error">+22</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-tertiary-fixed-dim/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="water_damage">water_damage</span>
+<span class="text-on-surface">Water Contamination Index</span>
+</div>
+<span class="font-bold text-tertiary">+15</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="thermostat">thermostat</span>
+<span class="text-on-surface">Temperature Spike</span>
+</div>
+<span class="font-medium text-on-surface-variant">+3.2°C</span>
+</li>
+</ul>
+<!-- Actions -->
+<div class="mt-stack-lg pt-stack-md border-t border-outline-variant flex flex-col gap-stack-sm">
+<button class="w-full h-touch-target bg-primary text-on-primary font-button text-button rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="verified">verified</span> Verify Alert
+                        </button>
+<div class="flex gap-stack-sm">
+<button class="flex-1 h-touch-target bg-surface text-primary border border-primary font-button text-button rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="cancel">cancel</span> Reject
+                            </button>
+<button class="flex-1 h-touch-target bg-error text-on-error font-button text-button rounded-lg flex items-center justify-center gap-2 hover:bg-error/90 transition-colors">
+<span class="material-symbols-outlined" data-icon="escalator_warning">escalator_warning</span> Escalate
+                            </button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

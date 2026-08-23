@@ -1,0 +1,55 @@
+{
+  "app_name": "SmartHealthNE",
+  "tagline": "Smart Community Health Monitoring & Early Warning System",
+  "disclaimer": "Public-health monitoring parameters only. Not a medical diagnosis.",
+  "roles": {
+    "COMMUNITY_MEMBER": "Community Member",
+    "HEALTH_WORKER": "Health Worker",
+    "NATIONAL_ADMIN": "National Admin"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "report_health": "Report Symptom",
+    "report_water": "Report Water Issue",
+    "alerts": "Alerts",
+    "awareness": "Awareness",
+    "history": "My Reports",
+    "profile": "Profile",
+    "logout": "Logout",
+    "reports": "Reports",
+    "villages": "Villages",
+    "risk": "Risk Assessment",
+    "analytics": "Analytics",
+    "users": "User Management",
+    "settings": "Settings"
+  },
+  "community": {
+    "welcome": "Welcome to SmartHealthNE",
+    "local_risk": "Local Risk Level",
+    "report_issue_now": "Report Health Issue",
+    "report_water_now": "Report Water Problem",
+    "recent_alerts": "Recent Community Alerts",
+    "prevention_tips": "Prevention & Action Tips",
+    "offline_notice": "Offline mode active. Reports will sync automatically when back online.",
+    "pending_sync": "Pending Sync"
+  },
+  "reports": {
+    "symptoms": "Symptoms",
+    "duration": "Duration (days)",
+    "affected_people": "Number of affected people",
+    "water_source": "Primary water source",
+    "water_issues": "Observed water issues",
+    "description": "Additional details",
+    "submit": "Submit Report",
+    "success": "Report submitted successfully!",
+    "water_report_title": "Water Issue Report",
+    "issue_type": "Issue Type",
+    "severity": "Severity"
+  },
+  "risk_levels": {
+    "LOW": "Low Risk",
+    "MEDIUM": "Medium Risk",
+    "HIGH": "High Risk",
+    "CRITICAL": "Critical Risk"
+  }
+}
