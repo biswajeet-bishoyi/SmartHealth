@@ -50,7 +50,8 @@ const getDashboard = async (req, res, next) => {
  */
 const verifyReport = async (req, res, next) => {
   try {
-    const { status, verificationNotes } = req.body;
+    const status = req.body.status || 'VERIFIED';
+    const verificationNotes = req.body.verificationNotes || req.body.notes || '';
     const { id } = req.params;
 
     if (!['VERIFIED', 'REJECTED'].includes(status)) {
@@ -168,7 +169,7 @@ const verifyAlert = async (req, res, next) => {
 };
 
 const verifyReportRules = [
-  body('status').isIn(['VERIFIED', 'REJECTED']).withMessage('Status must be VERIFIED or REJECTED'),
+  body('status').optional().isIn(['VERIFIED', 'REJECTED']).withMessage('Status must be VERIFIED or REJECTED'),
 ];
 
 module.exports = {

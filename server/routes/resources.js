@@ -36,7 +36,7 @@ router.post('/assignments', requireAuth, requireRole('NATIONAL_ADMIN'), async (r
   try {
     const { resourceId, responsePlanId, village, district, state } = req.body;
     if (!resourceId || !village || !district) return res.status(400).json({ success: false, message: 'resourceId, village, district required' });
-    const assignment = await resourceService.assignResource({ resourceId, responsePlanId, village, district, state, assignedBy: req.user.userId });
+    const assignment = await resourceService.assignResource({ resourceId, responsePlanId, village, district, state, assignedBy: req.user.id || req.user._id || req.user.userId });
     res.status(201).json({ success: true, data: assignment });
   } catch (err) { next(err); }
 });
@@ -44,7 +44,7 @@ router.post('/assignments', requireAuth, requireRole('NATIONAL_ADMIN'), async (r
 // PATCH /api/resources/assignments/:id — update assignment status
 router.patch('/assignments/:id', requireAuth, requireRole('NATIONAL_ADMIN'), async (req, res, next) => {
   try {
-    const assignment = await resourceService.updateAssignment(req.params.id, req.body, req.user.userId);
+    const assignment = await resourceService.updateAssignment(req.params.id, req.body, req.user.id || req.user._id || req.user.userId);
     res.json({ success: true, data: assignment });
   } catch (err) { next(err); }
 });

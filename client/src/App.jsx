@@ -19,6 +19,7 @@ import Alerts from './pages/Alerts';
 import Resources from './pages/Resources';
 import Users from './pages/Users';
 import HealthWorkerQueue from './pages/HealthWorkerQueue';
+import History from './pages/community/History';
 
 // v2.0 Admin Pages
 import WhatIfSimulator from './pages/admin/WhatIfSimulator';
@@ -141,8 +142,35 @@ function AppRoutes() {
           }
         />
 
+        <Route
+          path="/community/history"
+          element={
+            <ProtectedRoute allowedRoles={['COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN']}>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute allowedRoles={['COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN']}>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/track"
+          element={
+            <ProtectedRoute allowedRoles={['COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN']}>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+
         {/* Legacy redirects */}
-        <Route path="/community/*" element={<Navigate to="/" replace />} />
+        <Route path="/community/reports" element={<Navigate to="/community/history" replace />} />
+        <Route path="/community/report" element={<Navigate to="/report" replace />} />
+        <Route path="/health-worker/queue" element={<Navigate to="/queue" replace />} />
         <Route path="/health-worker/*" element={<Navigate to="/" replace />} />
         <Route path="/admin/users" element={<Navigate to="/users" replace />} />
         <Route path="/admin/simulator" element={<Navigate to="/simulator" replace />} />

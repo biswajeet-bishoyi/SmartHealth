@@ -21,12 +21,23 @@ const createReport = async (req, res, next) => {
     const affectedPeople = req.body.affectedPeople || req.body.affectedCount || 1;
     const description = req.body.description || req.body.notes || (req.body.voiceTranscript ? `Voice transcript: "${req.body.voiceTranscript}"` : '');
     const sourceChannel = req.body.sourceChannel || 'APP';
-    const waterSource = req.body.waterSource || 'tap';
+    const rawSources = req.body.waterSources || (req.body.waterSource ? [req.body.waterSource] : ['community_well']);
+    const waterSources = Array.isArray(rawSources) ? rawSources : [rawSources];
+    const waterSource = req.body.waterSource || waterSources[0] || 'community_well';
 
     // Normalize symptoms
     const normalizedSymptoms = Array.isArray(symptoms)
       ? symptoms.map(s => String(s).toLowerCase().trim().replace(/ /g, '_'))
       : (symptoms ? [String(symptoms).toLowerCase().trim().replace(/ /g, '_')] : ['other']);
+
+    // Determine initial verification status based on reporter role
+    const isHealthStaff = req.user.role === 'HEALTH_WORKER' || req.user.role === 'NATIONAL_ADMIN';
+    const status = isHealthStaff ? 'VERIFIED' : 'PENDING';
+    const verifiedBy = isHealthStaff ? req.user.id : undefined;
+    const verifiedAt = isHealthStaff ? new Date() : undefined;
+    const verificationNotes = isHealthStaff
+      ? `Direct field clinical verification recorded by Accredited Health Officer (${req.user.name || 'Staff'})`
+      : undefined;
 
     const report = await HealthReport.create({
       userId: req.user.id,
@@ -39,10 +50,14 @@ const createReport = async (req, res, next) => {
       duration,
       affectedPeople,
       waterSource,
+      waterSources,
       waterIssues: waterIssues || ['no_issue'],
       description,
       sourceChannel,
-      status: 'PENDING',
+      status,
+      verifiedBy,
+      verifiedAt,
+      verificationNotes,
     });
 
     const io = req.app.get('io');
@@ -152,11 +167,15 @@ const createReportRules = [
   body('district').trim().notEmpty().withMessage('District is required'),
   body('village').trim().notEmpty().withMessage('Village is required'),
   body('symptoms').isArray({ min: 1 }).withMessage('At least one symptom is required'),
-  body('symptoms.*').isIn(['diarrhea', 'vomiting', 'fever', 'abdominal_pain', 'dehydration', 'other'])
+  body('symptoms.*').isIn(['diarrhea', 'vomiting', 'fever', 'abdominal_pain', 'dehydration', 'skin_rash', 'fatigue', 'other'])
     .withMessage('Invalid symptom value'),
   body('affectedPeople').optional().isInt({ min: 1 }).withMessage('Affected people must be a positive integer'),
-  body('waterSource').optional().isIn(['river', 'well', 'hand_pump', 'tap', 'pond', 'other'])
+  body('duration').optional().isInt({ min: 0 }).withMessage('Duration must be a valid number of days'),
+  body('waterSource').optional().isIn(['river', 'well', 'community_well', 'hand_pump', 'tap', 'tap_water', 'pond', 'other'])
     .withMessage('Invalid water source'),
+  body('waterSources').optional().isArray().withMessage('Water sources must be an array'),
+  body('waterSources.*').optional().isIn(['river', 'well', 'community_well', 'hand_pump', 'tap', 'tap_water', 'pond', 'other'])
+    .withMessage('Invalid water source in array'),
 ];
 
 module.exports = { createReport, getReports, getReportById, createReportRules };

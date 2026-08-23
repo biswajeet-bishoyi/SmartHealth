@@ -10,16 +10,17 @@ const { sendError } = require('../utils/response');
  * @param {...string} roles - One or more allowed roles
  */
 const requireRole = (...roles) => {
+  const allowed = roles.flat();
   return (req, res, next) => {
     if (!req.user) {
       return sendError(res, 401, 'Authentication required.');
     }
 
-    if (!roles.includes(req.user.role)) {
+    if (!allowed.includes(req.user.role)) {
       return sendError(
         res,
         403,
-        `Access denied. This action requires one of: [${roles.join(', ')}].`
+        `Access denied. This action requires one of: [${allowed.join(', ')}].`
       );
     }
 

@@ -14,9 +14,9 @@ const getAlerts = async (req, res, next) => {
 
     if (req.user.role === 'COMMUNITY_MEMBER') {
       filter.status = 'BROADCAST';
-      if (req.user.district) filter.district = req.user.district;
+      if (district) filter.district = district;
     } else if (req.user.role === 'HEALTH_WORKER') {
-      if (req.user.district) filter.district = req.user.district;
+      if (district) filter.district = district;
       if (status) filter.status = status;
     } else {
       // Admin sees all

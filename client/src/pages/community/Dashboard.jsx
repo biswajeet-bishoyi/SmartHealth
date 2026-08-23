@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import useSocket from '../../hooks/useSocket';
 import api from '../../utils/axiosInstance';
 import VoiceReporter from '../../components/VoiceReporter';
+import AlertBanner from '../../components/AlertBanner';
 
 export default function CommunityHome() {
   const { user } = useAuth();
@@ -70,13 +71,16 @@ export default function CommunityHome() {
         <h1 className="text-2xl font-extrabold text-[#001e40] dark:text-white font-headline tracking-tight">
           Report an Issue
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link
             to="/report"
             className="bg-[#ba1a1a] hover:bg-[#93000a] text-white rounded-xl p-5 flex items-center gap-3.5 min-h-[64px] active:scale-95 transition-all shadow-md cursor-pointer"
           >
             <i className="fa-solid fa-notes-medical text-2xl" />
-            <span className="font-bold text-sm font-headline">Report Health Issue</span>
+            <div>
+              <span className="font-bold text-sm font-headline block">Report Symptoms</span>
+              <span className="text-[11px] opacity-80">Log acute illness for family</span>
+            </div>
           </Link>
 
           <Link
@@ -84,16 +88,30 @@ export default function CommunityHome() {
             className="bg-[#001e40] hover:bg-[#003366] text-white rounded-xl p-5 flex items-center gap-3.5 min-h-[64px] active:scale-95 transition-all shadow-md cursor-pointer border border-[#003366]"
           >
             <i className="fa-solid fa-droplet text-2xl text-[#6cf8bb]" />
-            <span className="font-bold text-sm font-headline">Report Water Problem</span>
+            <div>
+              <span className="font-bold text-sm font-headline block">Report Water Issue</span>
+              <span className="text-[11px] opacity-80">Flag turbid / dirty well water</span>
+            </div>
+          </Link>
+
+          <Link
+            to="/community/history"
+            className="bg-[#003366] hover:bg-[#00488f] text-white rounded-xl p-5 flex items-center gap-3.5 min-h-[64px] active:scale-95 transition-all shadow-md cursor-pointer border border-[#799dd6]/40"
+          >
+            <i className="fa-solid fa-route text-2xl text-[#a7c8ff]" />
+            <div>
+              <span className="font-bold text-sm font-headline block">Track My Reports</span>
+              <span className="text-[11px] opacity-80">View live triage & verification</span>
+            </div>
           </Link>
 
           <button
             type="button"
             onClick={() => setShowVoiceModal(true)}
-            className="bg-[#006c49] hover:bg-[#00855a] text-white rounded-xl p-5 flex items-center justify-center gap-3.5 min-h-[64px] md:col-span-2 active:scale-95 transition-all shadow-md cursor-pointer"
+            className="bg-[#006c49] hover:bg-[#00855a] text-white rounded-xl p-5 flex items-center justify-center gap-3.5 min-h-[64px] sm:col-span-2 lg:col-span-3 active:scale-95 transition-all shadow-md cursor-pointer"
           >
             <i className="fa-solid fa-microphone-lines text-2xl" />
-            <span className="font-bold text-sm font-headline">Report by Voice</span>
+            <span className="font-bold text-sm font-headline">Report via Voice Assistant (Instant Extraction)</span>
           </button>
         </div>
       </section>
@@ -101,40 +119,38 @@ export default function CommunityHome() {
       {/* ─── Active Alerts Section ────────────────────────────────────── */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-extrabold text-[#001e40] dark:text-white font-headline tracking-tight">
-            Active Alerts
-          </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-[#001e40] dark:text-white font-headline tracking-tight">
+              Active Public Alerts
+            </h2>
+            {alerts.length > 0 && (
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#ba1a1a] text-white animate-pulse">
+                {alerts.length} LIVE
+              </span>
+            )}
+          </div>
           <Link to="/alerts" className="text-xs font-bold text-[#003366] dark:text-[#a7c8ff] hover:underline">
-            View All ({alerts.length})
+            View All ({alerts.length}) →
           </Link>
         </div>
 
-        {/* Water Safety Advisory Banner */}
-        <div className="bg-[#ffdad6] dark:bg-rose-950/40 text-[#93000a] dark:text-rose-200 rounded-2xl p-6 border border-[#ba1a1a]/30 flex flex-col gap-3 shadow-md relative overflow-hidden">
-          <div className="absolute -right-6 -top-6 opacity-10 pointer-events-none">
-            <i className="fa-solid fa-triangle-exclamation text-9xl" />
+        {loading ? (
+          <div className="h-28 skeleton"></div>
+        ) : alerts.length === 0 ? (
+          <div className="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 dark:text-emerald-200 rounded-2xl p-5 border border-emerald-200 dark:border-emerald-800 flex items-center gap-3 shadow-sm">
+            <i className="fa-solid fa-circle-check text-2xl text-emerald-600 dark:text-emerald-400" />
+            <div>
+              <h4 className="font-bold text-sm">No Active Emergency Alerts in Your Area</h4>
+              <p className="text-xs opacity-80 mt-0.5">Water sources and health reports are currently stable. Continue following routine hygiene practices.</p>
+            </div>
           </div>
-
-          <div className="flex items-center gap-2.5 z-10">
-            <i className="fa-solid fa-triangle-exclamation text-lg text-[#ba1a1a]" />
-            <h3 className="text-base font-extrabold font-headline">
-              Water Safety Advisory
-            </h3>
+        ) : (
+          <div className="space-y-3">
+            {alerts.slice(0, 3).map((alert) => (
+              <AlertBanner key={alert._id || alert.alertId} alert={alert} />
+            ))}
           </div>
-
-          <p className="text-xs font-medium z-10 leading-relaxed max-w-xl">
-            Boil water for at least 1 minute before consumption in Sector 4 & Majuli Village due to reported turbidity and upstream flood surge.
-          </p>
-
-          <div className="flex justify-end z-10 pt-1">
-            <Link
-              to="/alerts"
-              className="text-xs font-bold text-[#ba1a1a] dark:text-rose-300 hover:underline px-3 py-1.5 rounded-lg hover:bg-[#ba1a1a]/10 transition-colors"
-            >
-              View Full Advisory Details →
-            </Link>
-          </div>
-        </div>
+        )}
       </section>
 
       {/* ─── Safety & Awareness Section ──────────────────────────────── */}

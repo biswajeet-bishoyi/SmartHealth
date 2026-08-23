@@ -202,7 +202,7 @@ const Alerts = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Tabs */}
         <div className="flex bg-[#e5eeff] dark:bg-[#142c4a] p-1 rounded-xl border border-[#c3c6d1] dark:border-[#1f3c60] text-xs font-bold">
-          {['Live Broadcasts', 'Pending Review', 'Pulse Groups'].map((tab) => {
+          {(user?.role === 'COMMUNITY_MEMBER' ? ['Live Broadcasts'] : ['Live Broadcasts', 'Pending Review', 'Pulse Groups']).map((tab) => {
             const isActive = activeTab === tab;
             return (
               <button
@@ -251,16 +251,18 @@ const Alerts = () => {
             ))}
           </div>
 
-          <button
-            onClick={() => setIsFormOpen(!isFormOpen)}
-            className={`btn text-xs py-2 px-4 font-bold ${
-              isFormOpen
-                ? 'btn-danger'
-                : 'btn-primary'
-            }`}
-          >
-            {isFormOpen ? '✕ Cancel Operation' : '+ New Broadcast'}
-          </button>
+          {user?.role !== 'COMMUNITY_MEMBER' && (
+            <button
+              onClick={() => setIsFormOpen(!isFormOpen)}
+              className={`btn text-xs py-2 px-4 font-bold ${
+                isFormOpen
+                  ? 'btn-danger'
+                  : 'btn-primary'
+              }`}
+            >
+              {isFormOpen ? '✕ Cancel Operation' : '+ New Broadcast'}
+            </button>
+          )}
         </div>
       </div>
 
@@ -471,12 +473,14 @@ const Alerts = () => {
                     </button>
                   )}
 
-                  <button
-                    onClick={() => handleResolve(alert._id)}
-                    className="btn btn-secondary text-xs py-1.5 px-3"
-                  >
-                    Mark Resolved
-                  </button>
+                  {user?.role !== 'COMMUNITY_MEMBER' && (
+                    <button
+                      onClick={() => handleResolve(alert._id)}
+                      className="btn btn-secondary text-xs py-1.5 px-3"
+                    >
+                      Mark Resolved
+                    </button>
+                  )}
                 </div>
               </div>
 

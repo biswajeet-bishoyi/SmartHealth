@@ -20,6 +20,7 @@ const TimelineEvent           = require('../models/TimelineEvent');
 const AuditLog                = require('../models/AuditLog');
 const Prediction              = require('../models/Prediction');
 const RiskExplanation         = require('../models/RiskExplanation');
+const CommunityQuery          = require('../models/CommunityQuery');
 
 // ─── Northeast India Locations ─────────────────────────────────────────────────
 const LOCATIONS = [
@@ -78,6 +79,7 @@ async function seedData() {
     AuditLog.deleteMany({}),
     Prediction.deleteMany({}),
     RiskExplanation.deleteMany({}),
+    CommunityQuery.deleteMany({}),
   ]);
   console.log('🗑  Cleared existing data');
 
@@ -617,7 +619,55 @@ async function seedData() {
     { type: 'SUPPLY_PACK', name: 'ORS + Chlorine Kit A', capacity: 500, currentAssignmentStatus: 'ASSIGNED', homeDistrict: 'Kamrup', homeState: 'Assam' },
     { type: 'EMERGENCY_RESPONSE_TEAM', name: 'Emergency Response Unit 1', capacity: 8, currentAssignmentStatus: 'AVAILABLE', homeDistrict: 'Kamrup', homeState: 'Assam' },
   ]);
-  console.log(`🚑 Resources created (${resources.length})`);
+  // ─── Community Queries (Q&A System) ──────────────────────────────────────────
+  const queries = await CommunityQuery.create([
+    {
+      userId: communityUser._id,
+      userName: 'Ranjit Das',
+      village: 'Majuli Village',
+      district: 'Kamrup',
+      state: 'Assam',
+      category: 'water',
+      question: 'Is it safe to drink water from the community ring well after the recent upstream river flooding?',
+      status: 'ANSWERED',
+      answer: 'No, floodwaters frequently carry coliform bacteria and microbial pathogens into open ring wells. Boil the water for at least 1 full minute or use 1 Halazone chlorine tablet per 20 Litres of clear water before consumption.',
+      answeredBy: workerUser._id,
+      answeredByName: 'Dr. Priya Sharma (Health Officer)',
+      answeredAt: daysAgo(1),
+      isCommonQuestion: true,
+    },
+    {
+      userId: communityUser._id,
+      userName: 'Bhaben Kalita',
+      village: 'Barpeta Road',
+      district: 'Kamrup',
+      state: 'Assam',
+      category: 'disease',
+      question: 'My child has loose motions and mild fever for 2 days. What home care should I start immediately?',
+      status: 'ANSWERED',
+      answer: 'Start Oral Rehydration Salts (ORS) solution immediately: mix 1 full packet in 1 Litre of clean drinking water and administer frequent small sips after every loose stool. Provide zinc supplements if available. If child shows sunken eyes, lethargy, or inability to drink, visit the nearest Sub-Centre/PHC without delay.',
+      answeredBy: workerUser._id,
+      answeredByName: 'Dr. Priya Sharma (Health Officer)',
+      answeredAt: daysAgo(2),
+      isCommonQuestion: true,
+    },
+    {
+      userId: communityUser._id,
+      userName: 'Dipika Moran',
+      village: 'Teok',
+      district: 'Jorhat',
+      state: 'Assam',
+      category: 'emergency',
+      question: 'Where can our self-help group collect emergency water testing kits (FTK) and free chlorine tablets in Kamrup?',
+      status: 'ANSWERED',
+      answer: 'Free Jal Jeevan Mission Field Test Kits (FTK) and NaDCC chlorine tablets are available at the Block Primary Health Centre (BPHC) and through your designated Village ASHA worker.',
+      answeredBy: workerUser._id,
+      answeredByName: 'Dr. Priya Sharma (Health Officer)',
+      answeredAt: daysAgo(3),
+      isCommonQuestion: true,
+    },
+  ]);
+  console.log(`💬 Community Queries seeded (${queries.length})`);
 
   console.log('\n🎉 Seed complete!\n');
   console.log('Demo accounts:');

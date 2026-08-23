@@ -31,7 +31,7 @@ router.put('/', requireAuth, requireRole('NATIONAL_ADMIN'), async (req, res, nex
 
     const config = await RiskConfig.findOneAndUpdate(
       { _singleton: 'risk_config' },
-      { ...updates, updatedBy: req.user.userId, $inc: { version: 1 } },
+      { ...updates, updatedBy: req.user.id || req.user._id || req.user.userId, $inc: { version: 1 } },
       { upsert: true, new: true, runValidators: true }
     );
 
@@ -39,7 +39,7 @@ router.put('/', requireAuth, requireRole('NATIONAL_ADMIN'), async (req, res, nex
     invalidateConfigCache();
 
     await auditService.record({
-      actorId: req.user.userId, actorRole: 'NATIONAL_ADMIN',
+      actorId: req.user.id || req.user._id || req.user.userId, actorRole: 'NATIONAL_ADMIN',
       action: 'CONFIG_UPDATED',
       entityType: 'RiskConfig', entityId: config._id,
       previousValue: prev, newValue: updates,

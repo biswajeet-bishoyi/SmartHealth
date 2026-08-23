@@ -28,6 +28,7 @@ const configRoutes        = require('./routes/config');
 const responseRoutes      = require('./routes/response');
 const resourcesRoutes     = require('./routes/resources');
 const voiceRoutes         = require('./routes/voice');
+const queryRoutes         = require('./routes/queries');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -127,6 +128,7 @@ app.use('/api/config',         configRoutes);
 app.use('/api/response',       responseRoutes);
 app.use('/api/resources',      resourcesRoutes);
 app.use('/api/voice',          voiceRoutes);
+app.use('/api/queries',        queryRoutes);
 
 // ─── 404 Handler ──────────────────────────────────────────────────────────────
 app.use((req, res) => {

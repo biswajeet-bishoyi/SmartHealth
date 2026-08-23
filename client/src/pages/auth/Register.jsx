@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { authService } from '../../services/authService';
+import { NORTHEAST_STATES, getDistricts, getVillages } from '../../data/locationData';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,45 @@ const Register = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const availableDistricts = useMemo(() => getDistricts(formData.state), [formData.state]);
+  const districtOptions = useMemo(() => {
+    const list = [...availableDistricts];
+    if (formData.district && !list.includes(formData.district)) list.unshift(formData.district);
+    return list;
+  }, [availableDistricts, formData.district]);
+
+  const availableVillages = useMemo(() => getVillages(formData.state, formData.district), [formData.state, formData.district]);
+  const villageOptions = useMemo(() => {
+    const list = [...availableVillages];
+    if (formData.village && !list.includes(formData.village)) list.unshift(formData.village);
+    return list;
+  }, [availableVillages, formData.village]);
+
+  const handleStateChange = (e) => {
+    const newState = e.target.value;
+    const newDistricts = getDistricts(newState);
+    const nextDistrict = newDistricts.length > 0 ? newDistricts[0] : '';
+    const newVillages = getVillages(newState, nextDistrict);
+    const nextVillage = newVillages.length > 0 ? newVillages[0] : '';
+    setFormData({
+      ...formData,
+      state: newState,
+      district: nextDistrict,
+      village: nextVillage,
+    });
+  };
+
+  const handleDistrictChange = (e) => {
+    const newDistrict = e.target.value;
+    const newVillages = getVillages(formData.state, newDistrict);
+    const nextVillage = newVillages.length > 0 ? newVillages[0] : '';
+    setFormData({
+      ...formData,
+      district: newDistrict,
+      village: nextVillage,
+    });
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -131,40 +171,47 @@ const Register = () => {
           <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="form-label">State</label>
-              <select name="state" className="form-select" value={formData.state} onChange={handleChange}>
-                <option value="Assam">Assam</option>
-                <option value="Meghalaya">Meghalaya</option>
-                <option value="Manipur">Manipur</option>
-                <option value="Nagaland">Nagaland</option>
-                <option value="Tripura">Tripura</option>
-                <option value="Mizoram">Mizoram</option>
+              <select name="state" className="form-select" value={formData.state} onChange={handleStateChange}>
+                {NORTHEAST_STATES.map((st) => (
+                  <option key={st} value={st}>
+                    {st}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
               <label className="form-label">District</label>
-              <input
-                type="text"
+              <select
                 name="district"
-                className="form-input"
+                className="form-select"
                 value={formData.district}
-                onChange={handleChange}
-                placeholder="e.g. Kamrup"
+                onChange={handleDistrictChange}
                 required
-              />
+              >
+                {districtOptions.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label className="form-label">Village</label>
-              <input
-                type="text"
+              <select
                 name="village"
-                className="form-input"
+                className="form-select"
                 value={formData.village}
                 onChange={handleChange}
-                placeholder="e.g. Majuli"
                 required
-              />
+              >
+                {villageOptions.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

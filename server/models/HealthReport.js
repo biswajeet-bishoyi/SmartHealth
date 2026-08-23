@@ -63,6 +63,10 @@ const healthReportSchema = new mongoose.Schema(
       type: String,
       enum: { values: WATER_SOURCES, message: 'Invalid water source' },
     },
+    waterSources: {
+      type: [String],
+      default: ['community_well'],
+    },
     waterIssues: {
       type: [String],
       enum: { values: WATER_ISSUES, message: 'Invalid water issue: {VALUE}' },

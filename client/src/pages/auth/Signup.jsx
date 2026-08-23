@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { authService } from '../../services/authService';
+import { NORTHEAST_STATES, getDistricts, getVillages } from '../../data/locationData';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('COMMUNITY_MEMBER');
+  const [stateRegion, setStateRegion] = useState('Assam');
   const [district, setDistrict] = useState('Kamrup');
   const [village, setVillage] = useState('Majuli Village');
   const [error, setError] = useState('');
@@ -15,6 +17,39 @@ const Signup = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const availableDistricts = useMemo(() => getDistricts(stateRegion), [stateRegion]);
+  const districtOptions = useMemo(() => {
+    const list = [...availableDistricts];
+    if (district && !list.includes(district)) list.unshift(district);
+    return list;
+  }, [availableDistricts, district]);
+
+  const availableVillages = useMemo(() => getVillages(stateRegion, district), [stateRegion, district]);
+  const villageOptions = useMemo(() => {
+    const list = [...availableVillages];
+    if (village && !list.includes(village)) list.unshift(village);
+    return list;
+  }, [availableVillages, village]);
+
+  const handleStateChange = (e) => {
+    const newState = e.target.value;
+    setStateRegion(newState);
+    const newDistricts = getDistricts(newState);
+    const nextDistrict = newDistricts.length > 0 ? newDistricts[0] : '';
+    setDistrict(nextDistrict);
+    const newVillages = getVillages(newState, nextDistrict);
+    const nextVillage = newVillages.length > 0 ? newVillages[0] : '';
+    setVillage(nextVillage);
+  };
+
+  const handleDistrictChange = (e) => {
+    const newDistrict = e.target.value;
+    setDistrict(newDistrict);
+    const newVillages = getVillages(stateRegion, newDistrict);
+    const nextVillage = newVillages.length > 0 ? newVillages[0] : '';
+    setVillage(nextVillage);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +62,7 @@ const Signup = () => {
         email,
         password,
         role,
-        state: 'Assam',
+        state: stateRegion,
         district,
         village,
         language: 'en',
@@ -148,26 +183,50 @@ const Signup = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="form-label">STATE</label>
+              <select
+                className="form-select text-xs font-semibold"
+                value={stateRegion}
+                onChange={handleStateChange}
+              >
+                {NORTHEAST_STATES.map((st) => (
+                  <option key={st} value={st}>
+                    {st}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div>
               <label className="form-label">DISTRICT</label>
-              <input
-                type="text"
-                className="form-input text-xs font-semibold"
+              <select
+                className="form-select text-xs font-semibold"
                 value={district}
-                onChange={(e) => setDistrict(e.target.value)}
+                onChange={handleDistrictChange}
                 required
-              />
+              >
+                {districtOptions.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="form-label">VILLAGE</label>
-              <input
-                type="text"
-                className="form-input text-xs font-semibold"
+              <select
+                className="form-select text-xs font-semibold"
                 value={village}
                 onChange={(e) => setVillage(e.target.value)}
                 required
-              />
+              >
+                {villageOptions.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

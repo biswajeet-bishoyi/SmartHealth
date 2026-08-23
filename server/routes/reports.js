@@ -9,7 +9,7 @@ const { reportLimiter } = require('../middleware/rateLimiter');
 // All report routes require authentication
 router.use(requireAuth);
 
-router.post('/', reportLimiter, requireRole('COMMUNITY_MEMBER'), createReportRules, validate, createReport);
+router.post('/', reportLimiter, requireRole('COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN'), createReportRules, validate, createReport);
 router.get('/', requireRole('COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN'), getReports);
 router.get('/:id', requireRole('COMMUNITY_MEMBER', 'HEALTH_WORKER', 'NATIONAL_ADMIN'), getReportById);
 

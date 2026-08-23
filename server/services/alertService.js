@@ -104,8 +104,8 @@ const approveAlert = async (alertId, adminId) => {
   const alert = await Alert.findById(alertId);
   if (!alert) throw Object.assign(new Error('Alert not found'), { statusCode: 404 });
 
-  if (alert.status !== 'VERIFIED') {
-    throw Object.assign(new Error(`Cannot approve an alert with status: ${alert.status}. It must be VERIFIED first.`), { statusCode: 400 });
+  if (alert.status !== 'VERIFIED' && alert.status !== 'PENDING_REVIEW') {
+    throw Object.assign(new Error(`Cannot approve an alert with status: ${alert.status}`), { statusCode: 400 });
   }
 
   const prev = { status: alert.status };
@@ -150,6 +150,7 @@ const broadcastAlert = async (alertId, adminId, io) => {
 
   if (io) {
     const payload = {
+      _id: alert._id,
       alertId: alert._id,
       title: alert.title,
       message: alert.message,
@@ -157,9 +158,11 @@ const broadcastAlert = async (alertId, adminId, io) => {
       village: alert.village,
       district: alert.district,
       state: alert.state,
+      status: alert.status,
       preventionActions: alert.preventionActions,
       broadcastAt: alert.broadcastAt,
     };
+    io.emit('ALERT_BROADCAST', payload);
     io.to(`location:${alert.district}`).emit('ALERT_BROADCAST', payload);
     io.to('role:HEALTH_WORKER').emit('ALERT_BROADCAST', { alertId: alert._id, title: alert.title, riskLevel: alert.riskLevel, district: alert.district });
     io.to('role:NATIONAL_ADMIN').emit('ALERT_BROADCAST', { alertId: alert._id, title: alert.title, riskLevel: alert.riskLevel, district: alert.district });

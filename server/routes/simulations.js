@@ -19,7 +19,7 @@ router.post('/', requireAuth, requireRole('NATIONAL_ADMIN'), async (req, res, ne
       village, district, state,
       baselineAssessment: baseline,
       inputs: inputs || {},
-      runBy: req.user.userId,
+      runBy: req.user.id || req.user._id || req.user.userId,
     });
 
     res.status(201).json({ success: true, data: simulation });
