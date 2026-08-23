@@ -19,7 +19,11 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    const newSocket = io(window.location.origin, {
+    const socketUrl = import.meta.env.VITE_API_URL
+      ? import.meta.env.VITE_API_URL.replace(/\/$/, '').replace(/\/api$/, '')
+      : window.location.origin;
+
+    const newSocket = io(socketUrl, {
       transports: ['websocket', 'polling'],
       autoConnect: true,
     });
@@ -38,7 +42,7 @@ export const SocketProvider = ({ children }) => {
     return () => {
       newSocket.disconnect();
     };
-  }, [isAuthenticated, user?.role, user?.district]);
+  }, [isAuthenticated, user]);
 
   return (
     <SocketContext.Provider value={{ socket, connected }}>
