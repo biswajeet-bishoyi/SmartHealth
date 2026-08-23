@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const { seedData } = require('../scripts/seed');
 
 let mongod = null;
 
 const connectDB = async () => {
-  const customUri = process.env.MONGO_URI;
+  const customUri = process.env.MONGODB_URI || process.env.MONGO_URI;
   const isDefaultLocal = !customUri || customUri === 'mongodb://localhost:27017/smarthealthne';
 
-  // 1. If user provided a custom URI (e.g. MongoDB Atlas), try connecting to it directly
+  // 1. If user provided a custom URI (e.g. MongoDB Atlas), connect to it directly
   if (customUri && !isDefaultLocal) {
     try {
       const conn = await mongoose.connect(customUri, { serverSelectionTimeoutMS: 5000 });
-      console.log(`✅ MongoDB Atlas connected: ${conn.connection.host}`);
+      console.log(`✅ MongoDB Cloud connected: ${conn.connection.host}`);
       return;
     } catch (error) {
-      console.error(`❌ MongoDB Atlas connection error: ${error.message}`);
+      console.error(`❌ MongoDB Cloud connection error: ${error.message}`);
       console.log('⚠️ Falling back to in-memory demo database...');
     }
   } else {
@@ -32,8 +31,9 @@ const connectDB = async () => {
     }
   }
 
-  // 3. Fallback: Start in-memory MongoDB server instantly & auto-seed
+  // 3. Fallback: Start in-memory MongoDB server & auto-seed
   try {
+    const { MongoMemoryServer } = require('mongodb-memory-server');
     mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
     const conn = await mongoose.connect(uri);
@@ -48,4 +48,3 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
-
