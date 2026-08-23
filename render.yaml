@@ -1,9 +1,9 @@
 services:
-  # Backend Web Service (Node.js + Socket.IO + Express)
+  # Backend Web Service (Node.js + Express + Socket.IO)
   - type: web
     name: smarthealthne-backend
+    env: node
     plan: free
-    runtime: node
     rootDir: server
     buildCommand: npm install
     startCommand: npm start
@@ -17,11 +17,9 @@ services:
       - key: CLIENT_URL
         value: https://smarthealthne-frontend.onrender.com
 
-  # Frontend Static Web App (React + Vite + Tailwind + FontAwesome)
-  - type: web
+  # Frontend Static Site (React + Vite + Tailwind + FontAwesome)
+  - type: static
     name: smarthealthne-frontend
-    plan: free
-    runtime: static
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
