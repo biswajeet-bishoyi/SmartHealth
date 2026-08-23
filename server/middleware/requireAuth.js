@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { sendError } = require('../utils/response');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'smarthealthne-sentinel-jwt-secret-key-2026-production';
+
 /**
  * requireAuth middleware
  * Verifies the JWT from the Authorization header.
@@ -20,7 +22,7 @@ const requireAuth = async (req, res, next) => {
 
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, JWT_SECRET);
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
         return sendError(res, 401, 'Session expired. Please log in again.');

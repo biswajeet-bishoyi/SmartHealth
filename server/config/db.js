@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { seedData } = require('../scripts/seed');
+const User = require('../models/User');
 
 let mongod = null;
 
@@ -12,6 +13,14 @@ const connectDB = async () => {
     try {
       const conn = await mongoose.connect(customUri, { serverSelectionTimeoutMS: 5000 });
       console.log(`✅ MongoDB Cloud connected: ${conn.connection.host}`);
+      
+      // Auto-seed if cloud database has no users
+      const count = await User.countDocuments();
+      if (count === 0) {
+        console.log('🌱 Cloud database is empty — auto-populating demo accounts & outbreak dataset...');
+        await seedData();
+        console.log('🎉 Cloud database seeded successfully!');
+      }
       return;
     } catch (error) {
       console.error(`❌ MongoDB Cloud connection error: ${error.message}`);
@@ -24,6 +33,10 @@ const connectDB = async () => {
         serverSelectionTimeoutMS: 2000,
       });
       console.log(`✅ Local MongoDB connected: ${conn.connection.host}`);
+      const count = await User.countDocuments();
+      if (count === 0) {
+        await seedData();
+      }
       return;
     } catch (error) {
       console.log('💡 Local MongoDB service not detected on localhost:27017');
