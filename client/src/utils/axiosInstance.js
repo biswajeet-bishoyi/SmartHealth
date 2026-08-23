@@ -1,11 +1,19 @@
 import axios from 'axios';
 
-const apiBase = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/api`
-  : '/api';
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    const raw = import.meta.env.VITE_API_URL.replace(/\/$/, '').replace(/\/api$/, '');
+    return `${raw}/api`;
+  }
+  // Auto-detect Render cloud production environment
+  if (typeof window !== 'undefined' && window.location.hostname.endsWith('onrender.com')) {
+    return 'https://smarthealthne-backend.onrender.com/api';
+  }
+  return '/api';
+};
 
 const api = axios.create({
-  baseURL: apiBase,
+  baseURL: getApiBaseUrl(),
   timeout: 15000,
   headers: { 'Content-Type': 'application/json' },
 });

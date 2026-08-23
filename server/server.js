@@ -32,13 +32,27 @@ const voiceRoutes         = require('./routes/voice');
 const app = express();
 const httpServer = http.createServer(app);
 
+// ─── Dynamic CORS Configuration ──────────────────────────────────────────────
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true; // allow same-origin, curl, server-to-server
+  if (origin.includes('localhost') || origin.includes('127.0.0.1')) return true;
+  if (origin.endsWith('.onrender.com') || origin.endsWith('.vercel.app')) return true;
+  if (process.env.CLIENT_URL && origin.startsWith(process.env.CLIENT_URL.replace(/\/$/, ''))) return true;
+  return true; // allow all origins for hackathon demo
+};
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+};
+
 // ─── Socket.IO Setup ──────────────────────────────────────────────────────────
 const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
+  cors: corsOptions,
 });
 
 // Attach io to app so controllers/services can access it via req.app.get('io')
@@ -78,10 +92,7 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false, // Allow Leaflet map tiles
 }));
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(cors(corsOptions));
 
 // ─── General Middleware ────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));

@@ -19,13 +19,17 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    const socketUrl = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL.replace(/\/$/, '').replace(/\/api$/, '')
-      : window.location.origin;
+    let socketUrl = window.location.origin;
+    if (import.meta.env.VITE_API_URL) {
+      socketUrl = import.meta.env.VITE_API_URL.replace(/\/$/, '').replace(/\/api$/, '');
+    } else if (typeof window !== 'undefined' && window.location.hostname.endsWith('onrender.com')) {
+      socketUrl = 'https://smarthealthne-backend.onrender.com';
+    }
 
     const newSocket = io(socketUrl, {
       transports: ['websocket', 'polling'],
       autoConnect: true,
+      withCredentials: true,
     });
 
     newSocket.on('connect', () => {
